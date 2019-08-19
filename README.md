@@ -39,6 +39,6 @@ const mock = new XMLHttpRequestMock([
 ]);
 
 //browser - is protractor browser global
-await mock.mock();
+await mock.mock(browser);
 
 ```
