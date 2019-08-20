@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Time</h2>
+    <div id="time"></div>
+    <div id="timeResponse"></div>
+    <button id="buttonTime">Get Time</button>
+    <script>
+        document.querySelector("#buttonTime").addEventListener("click", function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://localhost:3000/time", false);
+            xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+            xhr.onload = function() {
+                console.log(this);
+                document.querySelector("#time").innerHTML = this.responseText;
+                document.querySelector("#timeResponse").innerHTML = this.response;
+            };
+            xhr.send();
+        });
+    </script>
+</body>
+</html>
