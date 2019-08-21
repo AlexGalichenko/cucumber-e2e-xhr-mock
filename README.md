@@ -6,16 +6,16 @@ injecting test data.
 const { XMLHttpRequestMock, Rule } = require("xhr-mock");
 
 const mock = new XMLHttpRequestMock([
-    new Rule(
-        function (xhr) {
+    new Rule({
+        condition: function (xhr) {
             return xhr.responseURL.includes("api/endpointtomock")
         },
-        function () {
+        response: function () {
             return JSON.stringify({
                 data: "yourData"
             })
         }
-    )
+    })
 ]);
 
 //browser - is protractor browser global
@@ -28,14 +28,14 @@ Also it is possible to modify original response
 const { XMLHttpRequestMock, Rule } = require("xhr-mock");
 
 const mock = new XMLHttpRequestMock([
-    new Rule(
-        function (xhr) {
+    new Rule({
+        condition: function (xhr) {
             return xhr.responseURL.includes("api/endpointtomock")
         },
-        function (originalResponse) {
-            return originalResponse.replace("A", "B")
+        responseText: function (originalResponseText) {
+            return originalResponseText.replace("A", "B")
         }
-    )
+    })
 ]);
 
 //browser - is protractor browser global

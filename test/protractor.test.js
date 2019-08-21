@@ -1,18 +1,21 @@
-const { XMLHttpRequestMock, Rule } = require("../index");
-const { browser, element, by } = require("protractor");
+const {XMLHttpRequestMock, Rule} = require("../index");
+const {browser, element, by} = require("protractor");
 
 describe("protractor tests", () => {
     beforeAll(async () => {
         browser.waitForAngularEnabled(false);
         await browser.get("http://localhost:3000/testPage.html");
         const mock = new XMLHttpRequestMock([
-            new Rule(
-                function (xhr) {
-                    return xhr.responseURL.includes("time")
-                },
-                function (xhr) {
-                    console.log(xhr);
-                    return "mocked data"
+            new Rule({
+                    condition: function (xhr) {
+                        return xhr.responseURL.includes("time")
+                    },
+                    response: function () {
+                        return "mocked data"
+                    },
+                    responseText: function () {
+                        return "mocked data text"
+                    }
                 }
             )
         ]);
@@ -23,7 +26,7 @@ describe("protractor tests", () => {
         const buttonTime = element(by.css("#buttonTime"));
         await buttonTime.click();
         const resultField = element(by.css("#time"));
-        expect(await resultField.getText()).toBe("mocked data");
+        expect(await resultField.getText()).toBe("mocked data text");
     });
 
     it("mock result via response", async () => {
