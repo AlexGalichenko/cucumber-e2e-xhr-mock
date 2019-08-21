@@ -9,7 +9,7 @@ function xhrClientScript(args) {
     for (let i = 0; i < args.length; i++) {
         const rule = args[i];
         const keys = Object.keys(args[i]);
-        for (let propIndex = 1; propIndex < keys.length; propIndex++) {
+        for (let propIndex = 0; propIndex < keys.length; propIndex++) {
             const prop = keys[propIndex];
             if (prop !== "condition") {
                 const getter = Object.getOwnPropertyDescriptor(XMLHttpRequest.prototype, prop).get;

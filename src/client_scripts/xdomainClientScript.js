@@ -1,31 +1,39 @@
-//TODO create unit test and continue to work
 function xdomainClientScript(args) {
     var XDomainXMLHTTPRequest = XMLHttpRequest;
-    XMLHttpRequest = function () {
-        var xdomain = new XDomainXMLHTTPRequest();
+    XMLHttpRequest = function() {
+        const xdomain = new XDomainXMLHTTPRequest();
         xdomain.openOriginal = xdomain.open;
         xdomain.open = function () {
+            xdomain.method = arguments[0];
             xdomain.responseURL = arguments[1];
-            xdomain.openOriginal(arguments);
+            xdomain.openOriginal.apply(this, arguments);
         };
         xdomain.sendOriginal = xdomain.send;
-        xdomain.send = function () {
-            Object.defineProperty(this, "response", {
-                get: function () {
-                    for (var i = 0; i < args.length; i++) {
-                        var conditionFunction = eval("(" + args[i]["condition"] + ")");
-                        var handlerFunction = eval("(" + args[i]["handler"] + ")");
-                        if (conditionFunction(this)) {
-                            return handlerFunction(this._response)
-                        }
+        xdomain.send = function() {
+            for (let i = 0; i < args.length; i++) {
+                const rule = args[i];
+                const keys = Object.keys(args[i]);
+                for (let propIndex = 0; propIndex < keys.length; propIndex++) {
+                    const prop = keys[propIndex];
+                    if (prop !== "condition") {
+                        const privateProp = "_" + prop;
+                        Object.defineProperty(this, prop, {
+                            get: function () {
+                                const conditionFunction = eval("(" + rule["condition"] + ")");
+                                const handlerFunction = eval("(" + rule[prop] + ")");
+                                if (conditionFunction(this)) {
+                                    return handlerFunction(this[privateProp])
+                                }
+                                return this[privateProp]
+                            },
+                            set: function(val) {
+                                this[privateProp] = val;
+                            }
+                        });
                     }
-                    return this._response
-                },
-                set: function (response) {
-                    this._response = response;
                 }
-            });
-            xdomain.sendOriginal(arguments);
+            }
+            xdomain.sendOriginal.apply(this, arguments);
         };
         return xdomain
     };
