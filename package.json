@@ -1,29 +1,22 @@
 {
-    "name": "xhr-mock",
-    "version": "0.0.1",
-    "description": "mock for XMLHttpRequest",
-    "main": "index.js",
-    "scripts": {
-        "pretest1": "webdriver-manager update",
-        "test": "protractor test/protractor.conf.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/AlexGalichenko/cucumber-e2e-xhr-mock.git"
-    },
-    "keywords": [
-        "mock",
-        "XMLHttpRequest"
-    ],
-    "author": "Alexander Galichenko",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/AlexGalichenko/cucumber-e2e-xhr-mock/issues"
-    },
-    "homepage": "https://github.com/AlexGalichenko/cucumber-e2e-xhr-mock#readme",
-    "devDependencies": {
-        "express": "^4.17.1",
-        "jest": "^24.9.0",
-        "protractor": "^5.4.2"
-    }
+  "name": "@cucumber-e2e/xhr-mock",
+  "version": "0.0.1",
+  "description": "mock for XMLHttpRequest",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexGalichenko/cucumber-e2e-xhr-mock.git"
+  },
+  "keywords": [
+    "mock",
+    "XMLHttpRequest"
+  ],
+  "author": "Alexander Galichenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexGalichenko/cucumber-e2e-xhr-mock/issues"
+  },
+  "homepage": "https://github.com/AlexGalichenko/cucumber-e2e-xhr-mock#readme"
 }
