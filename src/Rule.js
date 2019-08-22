@@ -2,12 +2,12 @@ class Rule {
 
     /**
      * Create rule to handle response
-     * @param {Function} condition - function contains condition
-     * @param {Function} handler - modifier to request
+     * @param {Object} options - condition and handlers for interceptor
      */
-    constructor(condition, handler) {
-        this.condition = condition;
-        this.handler = handler;
+    constructor(options) {
+        for (let prop in options) {
+            this[prop] = options[prop]
+        }
     }
 
 }
